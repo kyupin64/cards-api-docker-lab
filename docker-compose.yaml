@@ -1,0 +1,16 @@
+---
+version: '3.8'
+services:
+  cards1:
+    image: cardsapp:latest
+    ports:
+      - "3000:3000"
+    deploy:
+      replicas: 3
+  cards2:
+    image: cardsapp:latest
+    ports:
+      - "3001:3000"
+    deploy:
+      replicas: 2
+...

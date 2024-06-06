@@ -16,6 +16,24 @@ To run this app using Docker, navigate to the directory of this app in your comm
     ```
 5. And to view it in the browser, go to Docker Desktop, navigate to the newly created container, and click on the link under "Port(s)" which will open the port in your browser
 
+To deploy a stack of this project, ensure you're navigated to the project folder in your command line.
+1. To create the image, run
+    ```
+    docker build -t cardsapp:latest .
+    ```
+2. To create the stack, run
+    ```
+    docker stack deploy -c docker-compose.yaml cardsapp-stack
+    ```
+3. To scale out the stack, run
+    ```
+    docker service scale cardsapp-stack_cards2=4
+    ```
+4. To remove the stack, run
+    ```
+    docker stack rm cardsapp-stack
+    ```
+5. To view the deployment in your browser, navigate to localhost:3000 or localhost:3001
 
 This server app was built using <a href="https://nodejs.org/" target="_blank" rel="noopener noreferrer">Node.js</a> with <a href="https://expressjs.org/" target="_blank" rel="noopener noreferrer">Express.js</a>.
 
