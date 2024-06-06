@@ -1,0 +1,92 @@
+### Get Token
+POST http://localhost:3000/getToken
+Content-Type: application/json
+
+# admin has access to all cards endpoints
+{
+    "username": "admin",
+    "password": "password"
+}
+
+# regular user has access to cards but cannot modify them
+# {
+#     "username": "kaladin",
+#     "password": "bridgefour"
+# }
+
+### Get Cards
+GET http://localhost:3000/cards
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzE3NjM3NDAyLCJleHAiOjE3MTc2MzgzMDJ9.RgWQXcfba2GMDIGjkUnckgjsyh_saDa27oBB7qnyt_I
+
+### Get Filtered Cards
+GET http://localhost:3000/cards?set=Base%20Set&type=Spell&rarity=Common
+# also works with numbers
+# GET http://localhost:3000/cards?type=Creature&power=4800
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzE3NjM3NDAyLCJleHAiOjE3MTc2MzgzMDJ9.RgWQXcfba2GMDIGjkUnckgjsyh_saDa27oBB7qnyt_I
+
+### Create New Card
+POST http://localhost:3000/cards/create
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzE3NjM3NDAyLCJleHAiOjE3MTc2MzgzMDJ9.RgWQXcfba2GMDIGjkUnckgjsyh_saDa27oBB7qnyt_I
+Content-Type: application/json
+
+# if id is unique, card will be created successfully
+{
+    "id": 126,
+    "name": "Bear Arms",
+    "set": "Expansion Pack",
+    "cardNumber": 26,
+    "type": "Artifact",
+    "rarity": "Common",
+    "cost": 2
+}
+
+# if id already exists, return error code 400
+# {
+#     "id": 1,
+#     "name": "Spelling Bee",
+#     "set": "Base Set",
+#     "cardNumber": 1,
+#     "type": "Spell",
+#     "rarity": "Uncommon",
+#     "cost": 1
+# }
+
+### Update Existing Card
+PUT http://localhost:3000/cards/10
+# if param id doesn't match any cards, return error code 404
+# PUT http://localhost:3000/cards/130
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzE3NjM3NDAyLCJleHAiOjE3MTc2MzgzMDJ9.RgWQXcfba2GMDIGjkUnckgjsyh_saDa27oBB7qnyt_I
+Content-Type: application/json
+
+# if id is the same as param id, the request succeeds
+{
+    "id": 10,
+    "cost": 3,
+    "rarity": "Uncommon"
+}
+
+# if id is not the same as param id but it's unique, the request succeeds
+# {
+#     "id": 130,
+#     "cost": 3,
+#     "rarity": "Uncommon"
+# }
+
+# if id is not the same as param id and it's not unique, return error code 400
+# {
+#     "id": 15,
+#     "cost": 3,
+#     "rarity": "Uncommon"
+# }
+
+# don't have to include id, can update/add any property
+# {
+#     "power": 2500,
+#     "loveliness": -1000
+# }
+
+### Delete Existing Card
+DELETE http://localhost:3000/cards/5
+# if param id doesn't match any cards, return error code 404
+# DELETE http://localhost:3000/cards/500
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzE3NjM3NDAyLCJleHAiOjE3MTc2MzgzMDJ9.RgWQXcfba2GMDIGjkUnckgjsyh_saDa27oBB7qnyt_I
