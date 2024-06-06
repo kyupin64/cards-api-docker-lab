@@ -2,11 +2,14 @@
 
 To run this app using Docker, navigate to the directory of this app in your command line.
 1. Initialize node by running
+
     npm init -y
 2. Add a secret to the .env.template file and rename the file to .env
 3. To create the image, run
+
     docker build -t cardsapp:latest .
 4. To create the container, run
+
     docker run -P --name cardsapp-container cardsapp:latest
 5. And to view it in the browser, go to Docker Desktop, navigate to the newly created container, and click on the link under "Port(s)" which will open the port in your browser
 
